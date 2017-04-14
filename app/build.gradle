@@ -1,0 +1,78 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
+    defaultConfig {
+        applicationId "com.team.wordreaderdemo"
+        minSdkVersion 17
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //突破方法数限制
+        multiDexEnabled true
+
+        //支持Jack
+        /*jackOptions {
+            //additionalParameters("jack.incremental": true)
+            enabled true
+        }*/
+    }
+    dexOptions {
+        incremental true
+        preDexLibraries = false
+        jumboMode = false
+        javaMaxHeapSize "2048M"
+    }
+    //将LICENSE文件排除在外
+    packagingOptions {
+        exclude 'META-INF/NOTICE' // will not include NOTICE file
+        exclude 'META-INF/LICENSE' // will not include LICENSE file
+        // as noted by @Vishnuvathsan you may also need to include
+        // variations on the file name. It depends on your dependencies.
+        // Some other common variations on notice and license file names
+        exclude 'META-INF/notice'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license'
+        exclude 'META-INF/license.txt'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    /*compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }*/
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:24.2.0'
+    testCompile 'junit:junit:4.12'
+    compile files('libs/commons-codec-1.10.jar')
+    compile files('libs/commons-collections4-4.1.jar')
+    compile files('libs/commons-logging-1.2.jar')
+    compile files('libs/junit-4.12.jar')
+    compile files('libs/log4j-1.2.17.jar')
+    compile files('libs/poi-3.15.jar')
+    compile files('libs/poi-excelant-3.15.jar')
+    compile files('libs/poi-ooxml-3.15.jar')
+    compile files('libs/poi-ooxml-schemas-3.15.jar')
+    compile files('libs/poi-scratchpad-3.15.jar')
+    compile files('libs/slf4j-api-1.7.25.jar')
+    compile files('libs/org.apache.poi.xwpf.converter.xhtml-1.0.0.jar')
+    compile files('libs/org.apache.poi.xwpf.converter.core-1.0.0.jar')
+    compile 'org.jsoup:jsoup:1.10.2'
+    compile files('libs/xmlbeans-2.3.0.jar')
+    compile files('libs/jodconverter-2.2.1.jar')
+}
